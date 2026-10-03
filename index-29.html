@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOJO GRAPHIC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800;900&display=swap');
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#02060c;color:#f4fbff;font-family:Vazirmatn,sans-serif}
+a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
+.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+
+/* ---------- سایت ---------- */
+header{height:72px;position:fixed;top:0;left:0;right:0;z-index:5;background:#02060ccc;backdrop-filter:blur(15px);border-bottom:1px solid #ffffff12}
+nav{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:900;letter-spacing:2px;color:#a9eaff}
+.links{display:flex;gap:24px;color:#9bb0c0;font-size:13px}
+.btn{border:1px solid #0aa9ff;border-radius:28px;padding:10px 18px;display:inline-block}
+button.btn{background:none;color:inherit;font:inherit;cursor:pointer}
+.btn.solid{background:#08a9f2;color:#00131c;border-color:#08a9f2;font-weight:700}
+.btn:disabled{opacity:.6;cursor:wait}
+.hero{min-height:730px;padding-top:100px;display:flex;align-items:center;background:radial-gradient(circle at 75% 40%,#00a9ff33,transparent 32%),url('hero.png') center/cover}
+.hero h1{font-size:clamp(55px,10vw,110px);line-height:.95;margin:15px 0;letter-spacing:-4px}
+.hero h1 span{color:#10b6ff}
+.hero .row{margin-top:18px}
+.k{color:#45caff;letter-spacing:5px;font-size:11px}
+.muted{color:#8298aa}
+section{padding:85px 0}
+.services{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.card,.work{border:1px solid #39c4ff1c;background:#07121ee8;border-radius:18px}
+.card{padding:25px}
+.card i{font-size:27px;color:#4fd0ff;font-style:normal}
+.card p{font-size:10px;color:#698094}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.work{grid-column:span 4;min-height:280px;overflow:hidden;position:relative;background:radial-gradient(circle at 70% 30%,#0a9cff55,transparent 55%),#07121e}
+.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+.work:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 35%,#02060cf2)}
+.info{position:absolute;z-index:1;bottom:18px;right:18px;left:18px}
+.info small{display:block;color:#83a0b2}
+.info em{display:block;font-style:normal;font-size:12px;color:#a8c0d0;margin-top:4px}
+.contact{text-align:center;border:1px solid #39c4ff2a;border-radius:24px;padding:55px;background:radial-gradient(circle at 50% 0,#009fff22,transparent 60%)}
+.contact .row{justify-content:center;margin-top:20px}
+.contact .addr{margin-top:18px;color:#8298aa;font-size:14px}
+.ltr{direction:ltr;unicode-bidi:embed}
+.reqbox{border:1px solid #39c4ff2a;border-radius:24px;padding:32px;background:#07121ee8;max-width:720px}
+.reqgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+#reqMsg{min-height:1.5em;font-size:14px;margin:12px 0 0}
+#reqMsg.ok{color:#7ff0b0}
+#reqMsg.err{color:#ff9aa8}
+#previewBar{position:fixed;bottom:0;left:0;right:0;z-index:9;background:#08a9f2;color:#00131c;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:700}
+#previewBar a{text-decoration:underline}
+@media(max-width:850px){.links{display:none}.services{grid-template-columns:repeat(2,1fr)}.work{grid-column:span 6}}
+@media(max-width:550px){.services{grid-template-columns:1fr}.work{grid-column:span 12}.reqgrid{grid-template-columns:1fr}.contact{padding:36px 20px}}
+
+/* ---------- پنل مدیریت ---------- */
+.login{min-height:100vh;display:grid;place-items:center}
+.box,.item{border:1px solid #38c6ff22;background:#07121de8;border-radius:20px}
+.box{padding:26px;margin:22px 0}
+.login .box{width:min(410px,calc(100% - 30px));margin:0}
+.input{width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ffffff18;border-radius:10px;background:#02080f;color:#fff;font:inherit}
+textarea.input{resize:vertical}
+.abtn{border:0;border-radius:10px;padding:11px 17px;background:#08a9f2;color:#00131c;font:inherit;font-weight:700;cursor:pointer;display:inline-block}
+.abtn.ghost{background:#07121d;color:#bdeeff;border:1px solid #ffffff18}
+.abtn.danger{background:#481720;color:#ffb5bf}
+.top{height:72px;border-bottom:1px solid #ffffff12;display:flex;align-items:center}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row.between{justify-content:space-between;width:100%}
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.item{overflow:hidden}
+.item .thumb{height:180px;background:radial-gradient(circle at 70% 30%,#0a9cff55,transparent 55%),#07121e}
+.item img{width:100%;height:180px;object-fit:cover;display:block}
+.body{padding:14px}
+.small{color:#7891a4;font-size:12px}
+.note{background:#0a1a28;border:1px solid #38c6ff22;border-radius:12px;padding:12px 14px;font-size:12px;color:#9bb7c8;line-height:2}
+label.lbl{display:block;font-size:12px;color:#9bb7c8;margin-top:4px}
+.srow{display:grid;grid-template-columns:60px 1fr 1fr auto auto;gap:8px;align-items:center;margin:8px 0}
+.srow .input{margin:0}
+@media(max-width:750px){.agrid{grid-template-columns:1fr 1fr}.srow{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.agrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ================= سایت ================= -->
+<div id="siteView">
+  <header>
+    <nav class="wrap">
+      <a class="logo" href="#">MOJO GRAPHIC</a>
+      <div class="links">
+        <a href="#gallery">نمونه‌کارها</a>
+        <a href="#services">خدمات</a>
+        <a href="#contact">تماس</a>
+      </div>
+      <a class="btn" href="#start">شروع پروژه</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="k">IDEAS × DESIGN × IMPACT</div>
+      <h1>MOJO <span>GRAPHIC</span></h1>
+      <p class="muted" id="heroDesc"></p>
+      <div class="row">
+        <a class="btn" href="#gallery">مشاهده نمونه‌کارها ←</a>
+        <a class="btn solid" href="#start">شروع پروژه</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="k">OUR SERVICES</div>
+      <h2>خدمات موجو گرافیک</h2>
+      <div class="services" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="k">FEATURED WORKS</div>
+      <h2>گالری پروژه‌ها</h2>
+      <div class="gallery" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="wrap">
+      <div class="k">START A PROJECT</div>
+      <h2>شروع پروژه</h2>
+      <p class="muted">توضیح کوتاهی از پروژه‌ات بنویس تا با تو تماس بگیریم.</p>
+      <form id="reqForm" class="reqbox">
+        <div class="reqgrid">
+          <input class="input" name="name" placeholder="نام و نام خانوادگی" required maxlength="80">
+          <input class="input" name="contact" placeholder="شماره تماس یا ایمیل" required maxlength="120">
+          <select class="input" name="service" id="reqService"></select>
+          <input class="input" name="budget" placeholder="بودجه (اختیاری)" maxlength="60">
+        </div>
+        <textarea class="input" name="message" rows="5" placeholder="توضیح پروژه" required maxlength="2000"></textarea>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn solid" id="reqBtn" type="submit">ارسال درخواست</button>
+        <p id="reqMsg"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div class="k">LET'S CREATE</div>
+        <h2 id="contactTitle"></h2>
+        <p class="muted" id="contactText"></p>
+        <div class="row" id="contactLinks"></div>
+        <div class="addr" id="contactAddr"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="previewBar" class="hidden">
+    <span>پیش‌نمایش پیش‌نویس — هنوز منتشر نشده</span>
+    <a href="#admin">بازگشت به پنل</a>
+  </div>
+</div>
+
+<!-- ================= پنل مدیریت ================= -->
+<div id="adminView" class="hidden">
+
+  <div id="loginBox" class="login">
+    <div class="box">
+      <h1>MOJO GRAPHIC</h1>
+      <p class="small">ورود به پنل مدیریت</p>
+      <input class="input" id="lu" placeholder="نام کاربری" autocomplete="username">
+      <input class="input" id="lp" type="password" placeholder="رمز عبور" autocomplete="current-password">
+      <p id="lerr" style="color:#ff8c9c;min-height:1.4em;margin:0 0 8px"></p>
+      <div class="row">
+        <button class="abtn" data-act="login">ورود</button>
+        <a class="abtn ghost" href="#">بازگشت به سایت</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="top">
+      <div class="wrap row between">
+        <b>MOJO ADMIN</b>
+        <div class="row">
+          <a class="abtn ghost" href="#">مشاهده سایت</a>
+          <button class="abtn ghost" data-act="logout">خروج</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <div class="box">
+        <h2>انتشار تغییرات</h2>
+        <div class="note">
+          هر تغییری که اینجا می‌دهی فقط «پیش‌نویس» است و در همین مرورگر می‌ماند. برای اینکه بازدیدکننده‌ها هم ببینند:<br>
+          ۱. تغییرات را بده و با «پیش‌نمایش» ببین<br>
+          ۲. «دانلود data.json» را بزن<br>
+          ۳. در گیت‌هاب، مخزن را باز کن، Add file ← Upload files را بزن و data.json را آپلود کن (اگر قبلاً هست، جایگزین می‌شود)<br>
+          ۴. Commit changes را بزن و دو سه دقیقه بعد سایت به‌روز می‌شود
+        </div>
+        <div class="row" style="margin-top:14px">
+          <a class="abtn ghost" href="#preview">پیش‌نمایش پیش‌نویس</a>
+          <button class="abtn" data-act="export">دانلود data.json</button>
+          <button class="abtn ghost" data-act="importPick">بارگذاری data.json</button>
+          <input type="file" id="importFile" accept="application/json" class="hidden">
+          <button class="abtn danger" data-act="resetDraft">برگرداندن پیش‌نویس به نسخه‌ی منتشرشده</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>اطلاعات سایت و تماس</h2>
+        <div id="settingsForm"></div>
+        <button class="abtn" data-act="saveSettings">ذخیره</button>
+        <div class="note" style="margin-top:16px">
+          <b>دریافت درخواست‌های پروژه:</b><br>
+          ۱. به web3forms.com برو و ایمیلت را وارد کن<br>
+          ۲. کلید (Access Key) برایت ایمیل می‌شود<br>
+          ۳. آن را در خانه‌ی «کلید دریافت درخواست‌ها» بگذار (اگر Formspree داری، آدرس فرمش را بگذار)<br>
+          ۴. ذخیره کن، data.json را دانلود و در گیت‌هاب آپلود کن<br>
+          تا وقتی کلید نگذاشته‌ای، دکمه‌ی ارسال به‌جایش برنامه‌ی ایمیل بازدیدکننده را باز می‌کند.
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>افزودن پروژه به گالری</h2>
+        <form id="projectForm">
+          <input class="input" name="title" placeholder="عنوان پروژه" required>
+          <input class="input" name="category" placeholder="دسته‌بندی (مثلاً Branding)" required>
+          <input class="input" name="description" placeholder="توضیح کوتاه">
+          <input class="input" type="file" name="image" accept="image/*" required>
+          <button class="abtn" id="addBtn">افزودن پروژه</button>
+        </form>
+      </div>
+
+      <div class="box">
+        <h2>گالری پروژه‌ها</h2>
+        <div id="projectsList" class="agrid"></div>
+      </div>
+
+      <div class="box">
+        <h2>خدمات</h2>
+        <div id="servicesList"></div>
+        <h3 style="margin-top:22px">افزودن خدمت جدید</h3>
+        <div class="srow">
+          <input class="input" id="ni" placeholder="آیکن" value="✦">
+          <input class="input" id="nt" placeholder="عنوان">
+          <input class="input" id="ns" placeholder="زیرعنوان (انگلیسی)">
+          <button class="abtn" data-act="addService">افزودن</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>نام کاربری و رمز عبور پنل</h2>
+        <div class="note" style="margin-bottom:14px">ورود فقط در مرورگر بررسی می‌شود و امنیت واقعی ندارد؛ فقط یک قفل ساده است.</div>
+        <div class="row">
+          <input class="input" id="cu" placeholder="نام کاربری جدید" style="flex:1;margin:0">
+          <input class="input" id="cp" type="password" placeholder="رمز عبور جدید" style="flex:1;margin:0" autocomplete="new-password">
+          <button class="abtn" data-act="saveCreds">ذخیره</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+/* ================= داده‌ها ================= */
+const DRAFT_KEY = 'mojo_graphic_draft_v2';
+const CREDS_KEY = 'mojo_graphic_creds_v2';
+const OLD_KEY   = 'mojo_graphic_data_v1';   // نسخه‌ی قبلی پنل
+const SESSION   = 'mojo_graphic_admin';
+const LAST_REQ  = 'mojo_graphic_last_request';
+
+const DEFAULTS = {
+  projects: [
+    { id: 'p3', title: 'MOJO BLUE',      category: 'Social',   description: 'مجموعه محتوای دیجیتال', image: 'hero.png' },
+    { id: 'p2', title: 'BORN TO CREATE', category: 'Poster',   description: 'کمپین پوستر خلاقانه',   image: 'hero.png' },
+    { id: 'p1', title: 'KOCO',           category: 'Branding', description: 'هویت بصری و بسته‌بندی', image: 'hero.png' }
+  ],
+  services: [
+    { id: 's1', icon: '✦', title: 'طراحی لوگو',    subtitle: 'LOGO DESIGN' },
+    { id: 's2', icon: '◈', title: 'برندینگ',        subtitle: 'BRANDING' },
+    { id: 's3', icon: '▣', title: 'طراحی پوستر',   subtitle: 'POSTER DESIGN' },
+    { id: 's4', icon: '▶', title: 'کاور و تامنیل', subtitle: 'THUMBNAIL & COVER' },
+    { id: 's5', icon: '✎', title: 'طراحی بنر',     subtitle: 'BANNER DESIGN' }
+  ],
+  settings: {
+    heroDesc: 'استودیوی طراحی برای ساخت هویت‌های بصری متفاوت؛ از لوگو و برندینگ تا پوستر، کاور و محتوای دیجیتال.',
+    contactTitle: 'ایده‌ات آماده‌ست؟',
+    contactText: 'برای شروع پروژه با موجو گرافیک در تماس باش.',
+    email: 'hello@mojographic.ir',
+    phone: '', whatsapp: '', telegram: '', instagram: '', address: '',
+    formKey: ''
+  }
+};
+const DEFAULT_CREDS = { user: 'admin', pass: 'mojo123' };
+
+const SETTING_FIELDS = [
+  ['heroDesc',     'متن معرفی صفحه‌ی اصلی', 'area'],
+  ['contactTitle', 'عنوان بخش تماس'],
+  ['contactText',  'متن بخش تماس', 'area'],
+  ['email',        'ایمیل'],
+  ['phone',        'شماره تماس'],
+  ['whatsapp',     'واتس‌اپ (شماره با کد کشور، مثلاً 989121234567)'],
+  ['telegram',     'تلگرام (آیدی بدون @)'],
+  ['instagram',    'اینستاگرام (آیدی بدون @)'],
+  ['address',      'آدرس'],
+  ['formKey',      'کلید دریافت درخواست‌ها (Web3Forms Access Key یا آدرس Formspree)']
+];
+
+let pub   = structuredClone(DEFAULTS);   // نسخه‌ی منتشرشده (data.json)
+let draft = loadDraft();                  // پیش‌نویس پنل
+let mode  = null;
+
+const $   = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+function normalize(d) {
+  return {
+    projects: Array.isArray(d.projects) ? d.projects : [],
+    services: Array.isArray(d.services) ? d.services : [],
+    settings: { ...DEFAULTS.settings, ...(d.settings || {}) }
+  };
+}
+function valid(d) { return d && Array.isArray(d.projects) && Array.isArray(d.services); }
+
+function loadDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY));
+    if (valid(d)) return normalize(d);
+  } catch (e) {}
+  // انتقال از نسخه‌ی قبلی پنل
+  try {
+    const o = JSON.parse(localStorage.getItem(OLD_KEY));
+    if (valid(o)) {
+      if (o.creds && !localStorage.getItem(CREDS_KEY)) localStorage.setItem(CREDS_KEY, JSON.stringify(o.creds));
+      return normalize(o);
+    }
+  } catch (e) {}
+  return null;
+}
+function saveDraft() {
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); return true; }
+  catch (e) { alert('حافظه‌ی مرورگر پر شده. تصویر کوچک‌تری انتخاب کن یا چند پروژه‌ی قدیمی را حذف کن.'); return false; }
+}
+function getCreds() {
+  try { const c = JSON.parse(localStorage.getItem(CREDS_KEY)); if (c && c.user && c.pass) return c; } catch (e) {}
+  return DEFAULT_CREDS;
+}
+
+/* نسخه‌ی منتشرشده را از data.json می‌خوانیم (اگر باشد) */
+const pubReady = fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : null)
+  .then(d => { if (valid(d)) pub = normalize(d); })
+  .catch(() => {});
+
+/* ================= نمایش سایت ================= */
+function contactHref(type, v) {
+  v = String(v || '').trim();
+  if (!v) return '';
+  const isUrl = /^https?:\/\//i.test(v);
+  if (type === 'email')     return 'mailto:' + v;
+  if (type === 'phone')     return 'tel:' + v.replace(/[^\d+]/g, '');
+  if (type === 'whatsapp')  return isUrl ? v : 'https://wa.me/' + v.replace(/\D/g, '');
+  if (type === 'telegram')  return isUrl ? v : 'https://t.me/' + v.replace(/^@/, '').replace(/\s+/g, '');
+  if (type === 'instagram') return isUrl ? v : 'https://instagram.com/' + v.replace(/^@/, '').replace(/\s+/g, '');
+  return '';
+}
+
+function renderSite(src) {
+  const s = src.settings;
+  $('galleryGrid').innerHTML = src.projects.map(p =>
+    `<article class="work">
+       <img src="${esc(p.image)}" alt="${esc(p.title)}" onerror="this.style.display='none'">
+       <div class="info"><b>${esc(p.title)}</b><small>${esc(p.category)}</small>${p.description ? `<em>${esc(p.description)}</em>` : ''}</div>
+     </article>`).join('');
+  $('servicesGrid').innerHTML = src.services.map(x =>
+    `<article class="card"><i>${esc(x.icon)}</i><h3>${esc(x.title)}</h3><p>${esc(x.subtitle)}</p></article>`).join('');
+
+  $('heroDesc').textContent = s.heroDesc;
+  $('contactTitle').textContent = s.contactTitle;
+  $('contactText').textContent = s.contactText;
+
+  const labels = [['email','ایمیل'],['phone','تماس'],['whatsapp','واتس‌اپ'],['telegram','تلگرام'],['instagram','اینستاگرام']];
+  $('contactLinks').innerHTML = labels.filter(([k]) => String(s[k] || '').trim()).map(([k, name]) =>
+    `<a class="btn" href="${esc(contactHref(k, s[k]))}" target="_blank" rel="noopener">${name}${(k==='email'||k==='phone') ? ` · <span class="ltr">${esc(s[k])}</span>` : ''}</a>`).join('');
+  $('contactAddr').textContent = s.address || '';
+
+  const sel = $('reqService'), keep = sel.value;
+  sel.innerHTML = '<option value="">نوع خدمت (اختیاری)</option>' +
+    src.services.map(x => `<option value="${esc(x.title)}">${esc(x.title)}</option>`).join('');
+  sel.value = keep;
+}
+
+/* ================= ارسال درخواست پروژه ================= */
+$('reqForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, msg = $('reqMsg'), btn = $('reqBtn');
+  const show = (t, cls) => { msg.textContent = t; msg.className = cls || ''; };
+
+  if (f.website.value) { show('درخواستت ارسال شد ✓', 'ok'); f.reset(); return; }   // ربات
+
+  const last = Number(localStorage.getItem(LAST_REQ) || 0);
+  if (Date.now() - last < 30000) return show('کمی صبر کن و دوباره امتحان کن.', 'err');
+
+  const data = {
+    name: f.name.value.trim(),
+    contact: f.contact.value.trim(),
+    service: f.service.value || 'نامشخص',
+    budget: f.budget.value.trim() || 'نامشخص',
+    message: f.message.value.trim()
+  };
+  const s = pub.settings, key = String(s.formKey || '').trim();
+
+  if (!key) {   // راه جایگزین: برنامه‌ی ایمیل
+    if (!s.email) return show('فرم هنوز تنظیم نشده. لطفاً از راه‌های تماس پایین صفحه استفاده کن.', 'err');
+    const body = `نام: ${data.name}\nتماس: ${data.contact}\nخدمت: ${data.service}\nبودجه: ${data.budget}\n\n${data.message}`;
+    location.href = 'mailto:' + s.email + '?subject=' + encodeURIComponent('درخواست پروژه - ' + data.name) + '&body=' + encodeURIComponent(body);
+    return show('برنامه‌ی ایمیل باز شد؛ پیام را از آنجا ارسال کن.', 'ok');
+  }
+
+  btn.disabled = true; btn.textContent = 'در حال ارسال...'; show('');
+  try {
+    let res, ok;
+    if (/^https?:\/\//i.test(key)) {   // Formspree و مشابه
+      res = await fetch(key, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) });
+      ok = res.ok;
+    } else {                           // Web3Forms
+      res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ access_key: key, subject: 'درخواست پروژه جدید - MOJO GRAPHIC', from_name: 'MOJO GRAPHIC', ...data })
+      });
+      const j = await res.json().catch(() => ({}));
+      ok = res.ok && j.success !== false;
+    }
+    if (!ok) throw new Error('send failed');
+    localStorage.setItem(LAST_REQ, String(Date.now()));
+    f.reset();
+    show('درخواستت ارسال شد ✓ به‌زودی با تو تماس می‌گیریم.', 'ok');
+  } catch (err) {
+    show('ارسال نشد. اینترنتت را چک کن یا از راه‌های تماس پایین صفحه استفاده کن.', 'err');
+  }
+  btn.disabled = false; btn.textContent = 'ارسال درخواست';
+});
+
+/* ================= نمایش پنل ================= */
+function renderAdmin() {
+  $('projectsList').innerHTML = draft.projects.length ? draft.projects.map(p =>
+    `<article class="item">
+       <div class="thumb"><img src="${esc(p.image)}" alt="" onerror="this.style.display='none'"></div>
+       <div class="body"><b>${esc(p.title)}</b><div class="small">${esc(p.category)}</div>
+       <div class="row" style="margin-top:10px"><button class="abtn danger" data-act="delProject" data-id="${esc(p.id)}">حذف</button></div></div>
+     </article>`).join('') : '<p class="small">هنوز پروژه‌ای نیست.</p>';
+
+  $('servicesList').innerHTML = draft.services.map(s =>
+    `<div class="srow">
+       <input class="input" data-f="icon" data-id="${esc(s.id)}" value="${esc(s.icon)}">
+       <input class="input" data-f="title" data-id="${esc(s.id)}" value="${esc(s.title)}">
+       <input class="input" data-f="subtitle" data-id="${esc(s.id)}" value="${esc(s.subtitle)}">
+       <button class="abtn" data-act="saveService" data-id="${esc(s.id)}">ذخیره</button>
+       <button class="abtn danger" data-act="delService" data-id="${esc(s.id)}">حذف</button>
+     </div>`).join('');
+}
+function renderSettings() {
+  $('settingsForm').innerHTML = SETTING_FIELDS.map(([k, label, type]) =>
+    `<label class="lbl">${esc(label)}</label>` +
+    (type === 'area'
+      ? `<textarea class="input" rows="3" data-set="${k}">${esc(draft.settings[k])}</textarea>`
+      : `<input class="input" data-set="${k}" value="${esc(draft.settings[k])}" ${k==='formKey'||k==='email'||k==='phone'||k==='whatsapp' ? 'dir="ltr"' : ''}>`)
+  ).join('');
+}
+function enterAdmin() {
+  const logged = sessionStorage.getItem(SESSION) === '1';
+  $('loginBox').classList.toggle('hidden', logged);
+  $('panel').classList.toggle('hidden', !logged);
+  if (logged) {
+    if (!draft) draft = structuredClone(pub);
+    renderAdmin(); renderSettings();
+  }
+  window.scrollTo(0, 0);
+}
+
+/* ================= مسیریابی ================= */
+async function route() {
+  const h = location.hash;
+  const next = h === '#admin' ? 'admin' : h === '#preview' ? 'preview' : 'site';
+  if (next === mode) return;       // پرش به بخش‌های صفحه، صفحه را دوباره نمی‌سازد
+  mode = next;
+  $('siteView').classList.toggle('hidden', next === 'admin');
+  $('adminView').classList.toggle('hidden', next !== 'admin');
+  $('previewBar').classList.toggle('hidden', next !== 'preview');
+  if (next === 'admin') { await pubReady; enterAdmin(); }
+  else renderSite(next === 'preview' ? (draft || pub) : pub);
+}
+window.addEventListener('hashchange', route);
+
+/* ================= تصویر: کوچک‌سازی قبل از ذخیره ================= */
+function fileToDataURL(file, max = 1200) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onerror = reject;
+    fr.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const k = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * k);
+        c.height = Math.round(img.height * k);
+        const x = c.getContext('2d');
+        x.fillStyle = '#02060c';
+        x.fillRect(0, 0, c.width, c.height);
+        x.drawImage(img, 0, 0, c.width, c.height);
+        resolve(c.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+/* ================= رویدادهای پنل ================= */
+$('projectForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, btn = $('addBtn');
+  const file = f.image.files[0];
+  if (!file) return;
+  btn.disabled = true; btn.textContent = 'در حال افزودن...';
+  try {
+    const image = await fileToDataURL(file);
+    draft.projects.unshift({
+      id: uid('p'),
+      title: f.title.value.trim(),
+      category: f.category.value.trim() || 'Branding',
+      description: f.description.value.trim(),
+      image
+    });
+    if (saveDraft()) f.reset(); else draft.projects.shift();
+    renderAdmin();
+  } catch (err) {
+    alert('خواندن تصویر ممکن نشد. فایل دیگری امتحان کن.');
+  }
+  btn.disabled = false; btn.textContent = 'افزودن پروژه';
+});
+
+$('importFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const fr = new FileReader();
+  fr.onload = () => {
+    try {
+      const d = JSON.parse(fr.result);
+      if (!valid(d)) throw 0;
+      const backup = draft;
+      draft = normalize(d);
+      if (!saveDraft()) { draft = backup; return; }
+      renderAdmin(); renderSettings();
+      alert('بارگذاری شد.');
+    } catch (err) { alert('فایل معتبر نیست.'); }
+  };
+  fr.readAsText(file);
+  e.target.value = '';
+});
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.dataset.act, id = el.dataset.id;
+
+  if (act === 'login') {
+    const c = getCreds();
+    if ($('lu').value === c.user && $('lp').value === c.pass) {
+      sessionStorage.setItem(SESSION, '1');
+      $('lerr').textContent = ''; $('lp').value = '';
+      enterAdmin();
+    } else $('lerr').textContent = 'نام کاربری یا رمز عبور اشتباه است';
+  }
+  if (act === 'logout') { sessionStorage.removeItem(SESSION); enterAdmin(); }
+
+  if (act === 'delProject' && confirm('این پروژه حذف شود؟')) {
+    draft.projects = draft.projects.filter(p => p.id !== id);
+    saveDraft(); renderAdmin();
+  }
+
+  if (act === 'saveService') {
+    const s = draft.services.find(x => x.id === id);
+    document.querySelectorAll(`[data-f][data-id="${id}"]`).forEach(i => s[i.dataset.f] = i.value);
+    saveDraft(); renderAdmin();
+  }
+  if (act === 'delService' && confirm('این خدمت حذف شود؟')) {
+    draft.services = draft.services.filter(s => s.id !== id);
+    saveDraft(); renderAdmin();
+  }
+  if (act === 'addService') {
+    const t = $('nt').value.trim();
+    if (!t) return alert('عنوان خدمت را وارد کن.');
+    draft.services.push({ id: uid('s'), icon: $('ni').value || '✦', title: t, subtitle: $('ns').value.trim() });
+    $('nt').value = ''; $('ns').value = '';
+    saveDraft(); renderAdmin();
+  }
+
+  if (act === 'saveSettings') {
+    document.querySelectorAll('[data-set]').forEach(i => draft.settings[i.dataset.set] = i.value.trim());
+    if (saveDraft()) alert('ذخیره شد (پیش‌نویس). برای انتشار، data.json را دانلود و در گیت‌هاب آپلود کن.');
+  }
+
+  if (act === 'export') {
+    const out = { projects: draft.projects, services: draft.services, settings: draft.settings };
+    const blob = new Blob([JSON.stringify(out)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'data.json';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  if (act === 'importPick') $('importFile').click();
+
+  if (act === 'resetDraft' && confirm('پیش‌نویس به نسخه‌ی منتشرشده برگردد؟ تغییرات منتشرنشده از بین می‌روند.')) {
+    draft = structuredClone(pub);
+    localStorage.removeItem(DRAFT_KEY);
+    renderAdmin(); renderSettings();
+  }
+
+  if (act === 'saveCreds') {
+    const u = $('cu').value.trim(), p = $('cp').value;
+    if (!u || p.length < 4) return alert('نام کاربری لازم است و رمز حداقل ۴ کاراکتر باشد.');
+    try { localStorage.setItem(CREDS_KEY, JSON.stringify({ user: u, pass: p })); $('cu').value = ''; $('cp').value = ''; alert('ذخیره شد.'); }
+    catch (err) { alert('ذخیره نشد.'); }
+  }
+});
+
+['lu', 'lp'].forEach(i => $(i).addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.querySelector('[data-act="login"]').click();
+}));
+
+route();
+pubReady.then(() => { if (mode === 'site') renderSite(pub); });
+</script>
+</body>
+</html>
